@@ -1,0 +1,76 @@
+---
+repos:
+  - repo: meta
+    hooks:
+      - id: identity
+      - id: check-hooks-apply
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=50000']
+      - id: check-shebang-scripts-are-executable
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-use-type-annotations
+      - id: python-no-log-warn
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        args: ["--py310-plus"]
+  - repo: https://github.com/psf/black
+    rev: 24.1.1
+    hooks:
+      - id: black
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.33.0
+    hooks:
+      - id: yamllint
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        additional_dependencies:
+          - tomli
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Sort imports in Python files
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-PyYAML
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.1.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.7
+    hooks:
+      - id: bandit
+        exclude: ^tests/
+  - repo: local
+    hooks:
+      - id: lint-markdown
+        name: Run markdownlint
+        description: Checks the style of Markdown files.
+        entry: markdownlint
+        language: node
+        types: [markdown]
+        files: \.(md|mdown|markdown)$
+        additional_dependencies: ['markdownlint-cli']
