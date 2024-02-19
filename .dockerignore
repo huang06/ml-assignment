@@ -1,0 +1,6 @@
+.venv/
+.coverage
+.git/
+.DS_Store
+.vscode/
+.mypy_cache/
