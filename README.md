@@ -1,14 +1,15 @@
 # ML Assignment
+
 Please implement a translation inference service that runs on Kubernetes and provides a RESTful API on port 9527.
 
 The translation model is `M2M100`, and the example can be found in `app/translation_example.py`.
 
-You should first fork this repository, and then send us the code or the url of your forked repository via email. 
+You should first fork this repository, and then send us the code or the url of your forked repository via email.
 
 **Please do not submit any pull requests to this repository.**
 
-
 ## Delivery
+
 - **app/Dockerfile**: To generate an application image
 - **k8s/deployment.yaml**: To deploy image to Kubernetes
 - Other necessary code
@@ -16,6 +17,7 @@ You should first fork this repository, and then send us the code or the url of y
 ## Input/Output
 
 When you execute this command:
+
 ```bash
 curl --location --request POST 'http://127.0.0.1:9527/translation' \
 --header 'Content-Type: application/json' \
@@ -34,6 +36,7 @@ curl --location --request POST 'http://127.0.0.1:9527/translation' \
 ```
 
 Should return:
+
 ```bash
 {
    "result":[
@@ -46,6 +49,7 @@ Should return:
 ```
 
 ## Bonus points
+
 - Clean code
 - Scalable architecture
 - Good inference performance
