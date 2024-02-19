@@ -1,0 +1,5 @@
+transformers[torch]==4.37.2
+torch==2.2.0
+sentencepiece==0.1.99
+# setuptools_rust==1.8.1
+tokenizers==0.15.2
