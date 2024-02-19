@@ -3,4 +3,5 @@
 .DS_Store
 .vscode/
 .mypy_cache/
-artifacts/
+artifacts/*
+!artifacts/.gitkeep
