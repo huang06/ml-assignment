@@ -1,1 +1,38 @@
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-assignment-deployment
+  labels:
+    app: ml-assignment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-assignment
+  template:
+    metadata:
+      labels:
+        app: ml-assignment
+    spec:
+      containers:
+        - name: ml-assignment
+          image: my-repo/library/ml-assignment:latest
+          ports:
+            - containerPort: 9527
+          env:
+            - name: LLM_DIR
+              value: "/artifacts/models--facebook--m2m100_418M/snapshots/62d980b8566a7c30e96918baf450d6a7218aadec/"
+          volumeMounts:
+            - name: llm-artifacts
+              mountPath: /artifacts
+              readOnly: true
+          command:
+            - "/bin/bash"
+            - "-c"
+          args:
+            - "uvicorn app.main:app --host 0.0.0.0 --port 9527"
+      volumes:
+        - name: llm-artifacts
+          persistentVolumeClaim:
+            claimName: llm-artifacts
