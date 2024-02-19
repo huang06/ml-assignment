@@ -1,0 +1,10 @@
+---
+version: "3"
+services:
+  ml-assignment:
+    image: my-repo/library/ml-assignment:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "9527:9527"
