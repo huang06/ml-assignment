@@ -6,10 +6,14 @@ services:
     build:
       context: .
       dockerfile: ./app/Dockerfile
+    environment:
+      LLM_DIR: "/artifacts/models--facebook--m2m100_418M/snapshots/62d980b8566a7c30e96918baf450d6a7218aadec/"
+    volumes:
+      - ./artifacts:/artifacts:ro
     ports:
       - "9527:9527"
     entrypoint:
       - "/bin/bash"
       - "-c"
     command:
-      - "uvicorn app.api:app --host 0.0.0.0 --port 9527"
+      - "uvicorn app.main:app --host 0.0.0.0 --port 9527"
