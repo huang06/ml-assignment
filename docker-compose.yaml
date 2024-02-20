@@ -2,7 +2,7 @@
 version: "3"
 services:
   ml-assignment:
-    image: my-repo/library/ml-assignment:latest
+    image: ml-assignment:latest
     build:
       context: .
       dockerfile: ./app/Dockerfile

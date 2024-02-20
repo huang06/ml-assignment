@@ -16,10 +16,10 @@ To deploy the translation service, you must prepare the container image containi
 
 ```bash
 # build the container image
-docker build -f ./app/Dockerfile -t my-repo/library/ml-assignment:latest .
+docker compose build
+
 # save the image as a tarball and import the image into k3s
-docker save --output ml-assignment.tar my-repo/library/ml-assignment:latest
-sudo k3s ctr images import ml-assignment.tar
+docker save ml-assignment:latest | sudo k3s ctr images import -
 ```
 
 ### Deploying the Service
@@ -27,5 +27,19 @@ sudo k3s ctr images import ml-assignment.tar
 ```bash
 kubectl apply -f ./volumes.yaml
 kubectl apply -f ./deployment.yaml
-kubectl apply -f ./service.yaml
+```
+
+### Expose the Service
+
+Open a new session and execute the following command:
+
+```bash
+kubectl port-forward deployment/ml-assignment --address 0.0.0.0 '9527:9527'
+```
+
+## Cleanup
+
+```bash
+kubectl delete -f ./deployment.yaml
+kubectl delete -f ./volumes.yaml
 ```

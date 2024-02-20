@@ -2,20 +2,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ml-assignment
+  name: ml-assignment 
 spec:
+  selector:
+    name: ml-assignment
   ports:
     - protocol: TCP
       port: 9527
       targetPort: 9527
-  selector:
-    app: ml-assignment
-  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ml-assignment-deployment
+  name: ml-assignment
   labels:
     app: ml-assignment
 spec:
@@ -30,7 +29,8 @@ spec:
     spec:
       containers:
         - name: ml-assignment
-          image: my-repo/library/ml-assignment:latest
+          image: ml-assignment:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 9527
           env:
