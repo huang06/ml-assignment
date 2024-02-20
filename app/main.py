@@ -24,7 +24,7 @@ class RequestModel(BaseModel):
 
 LLM_DIR = os.environ["LLM_DIR"]
 model = M2M100ForConditionalGeneration.from_pretrained(LLM_DIR)
-tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR, src_lang="en", tgt_lang="fr")
+tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR) 
 
 app = FastAPI()
 
