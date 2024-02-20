@@ -1,4 +1,4 @@
-# ml-assignment
+# ML Assignment
 
 ## Prerequisites
 
@@ -45,32 +45,20 @@ Open a new session and execute the following command:
 kubectl port-forward deployment/ml-assignment --address 0.0.0.0 '9527:9527'
 ```
 
-## Input/Output
+## Development
 
 ```bash
-curl --location --request POST 'http://127.0.0.1:9527/translation' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "payload": {
-        "fromLang": "en",
-        "records": [
-            {
-                "id": "123",
-                "text": "Life is like a box of chocolates."
-            }
-        ],
-        "toLang": "ja"
-    }
-}' | jq
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requriements.txt
+python3 -m pip install -r requriements-dev.txt
 ```
 
-```json
-{
-   "result":[
-      {
-         "id":"123",
-         "text":"人生はチョコレートの箱のようなものだ。"
-      }
-   ]
-}
+```bash
+pre-commit install
+pre-commit install -t commit-msg
+```
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 9527 --reload
 ```
