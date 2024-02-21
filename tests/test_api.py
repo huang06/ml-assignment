@@ -7,7 +7,7 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_read_main():
+def test_translation():
     data = {
         "payload": {
             "fromLang": "en",
