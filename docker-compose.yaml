@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./app/Dockerfile
     environment:
-      LLM_DIR: "/artifacts/models--facebook--m2m100_418M/snapshots/62d980b8566a7c30e96918baf450d6a7218aadec/"
+      LLM_DIR: "/artifacts/m2m100_418M"
     volumes:
       - ./artifacts:/artifacts:ro
     ports:

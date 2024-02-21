@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ml-assignment 
+  name: ml-assignment
 spec:
   selector:
     name: ml-assignment
@@ -35,7 +35,7 @@ spec:
             - containerPort: 9527
           env:
             - name: LLM_DIR
-              value: "/artifacts/models--facebook--m2m100_418M/snapshots/62d980b8566a7c30e96918baf450d6a7218aadec/"
+              value: "/artifacts/m2m100_418M"
           volumeMounts:
             - name: llm-artifacts
               mountPath: /artifacts
