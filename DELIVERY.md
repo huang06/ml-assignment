@@ -11,7 +11,7 @@
 ```bash
 docker compose build
 docker compose up -d
-``` 
+```
 
 ## Deploy ml-assignment with Kubernetes
 
@@ -61,4 +61,10 @@ pre-commit install -t commit-msg
 
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 9527 --reload
+```
+
+### Tests
+
+```bash
+pytest tests -vvs
 ```

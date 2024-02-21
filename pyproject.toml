@@ -18,7 +18,7 @@ profile = "black"
 add_imports = "from __future__ import annotations"
 
 [tool.pytest.ini_options]
-addopts = "--cov analytics_data_service --cov-report term-missing --cov-fail-under 80"
+addopts = "--cov app --cov-report term-missing --cov-fail-under 80"
 
 [tool.pydocstyle]
 convention = "numpy"
