@@ -15,7 +15,11 @@ def test_translation():
                 {
                     "id": "123",
                     "text": "Life is like a box of chocolates.",
-                }
+                },
+                {
+                    "id": "456",
+                    "text": "Life is like a box of chocolates.",
+                },
             ],
             "toLang": "ja",
         }
@@ -26,7 +30,11 @@ def test_translation():
             {
                 "id": "123",
                 "text": "人生はチョコレートの箱のようなものだ。",
-            }
+            },
+            {
+                "id": "456",
+                "text": "人生はチョコレートの箱のようなものだ。",
+            },
         ]
     }
 
