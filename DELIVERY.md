@@ -15,11 +15,17 @@ git clone https://huggingface.co/facebook/m2m100_418M artifacts/m2m100_418M
 ```
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+```bash
 optimum-cli export onnx \
-  --task seq2seq-lm \
+  --task text2text-generation-with-past \
   --framework pt \
   --model ./artifacts/m2m100_418M \
-  --optimize O2 ./artifacts/m2m100_418M_onnx
+  --optimize O1 ./artifacts/m2m100_418M_onnx
 ```
 
 ## Deploy ml-assignment with Docker Compose
@@ -68,9 +74,6 @@ kubectl port-forward service/ml-assignment --address 0.0.0.0 '9527:9527'
 ## Development
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
 python3 -m pip install -r requirements-dev.txt
 ```
 
