@@ -5,3 +5,4 @@
 .vscode/
 .mypy_cache/
 artifacts/
+__pycache__/

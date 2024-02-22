@@ -40,11 +40,6 @@ spec:
             - name: llm-artifacts
               mountPath: /artifacts
               readOnly: true
-          command:
-            - "/bin/bash"
-            - "-c"
-          args:
-            - "uvicorn app.main:app --host 0.0.0.0 --port 9527"
       volumes:
         - name: llm-artifacts
           persistentVolumeClaim:

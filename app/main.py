@@ -4,8 +4,9 @@ import logging
 import os
 
 from fastapi import FastAPI
+from optimum.onnxruntime import ORTModelForSeq2SeqLM
 from pydantic import BaseModel
-from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+from transformers import M2M100Config, M2M100ForConditionalGeneration, M2M100Tokenizer
 
 LOGLEVEL = os.environ.get("LOGLEVEL", "INFO")
 log = logging.getLogger(__name__)
@@ -28,8 +29,9 @@ class RequestModel(BaseModel):
 
 
 LLM_DIR = os.environ["LLM_DIR"]
-model = M2M100ForConditionalGeneration.from_pretrained(LLM_DIR)
-tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR)
+# model = M2M100ForConditionalGeneration.from_pretrained(LLM_DIR, local_files_only=True)
+model = ORTModelForSeq2SeqLM.from_pretrained(LLM_DIR, local_files_only=True)
+tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR, local_files_only=True)
 
 app = FastAPI()
 

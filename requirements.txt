@@ -1,4 +1,7 @@
 fastapi==0.109.2
+onnx==1.15.0
+onnxruntime==1.17.0
+optimum[exporters,onnxruntime]==1.17.1
 sentencepiece==0.1.99
 tokenizers==0.15.2
 torch==2.2.0

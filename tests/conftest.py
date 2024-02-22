@@ -11,5 +11,6 @@ here = Path(__file__).resolve().parent
 def mock_env(monkeypatch):
     monkeypatch.setenv(
         "LLM_DIR",
-        str(here / "../artifacts/m2m100_418M"),
+        # str(here / "../artifacts/m2m100_418M"),
+        str(here / "../artifacts/m2m100_418M_onnx"),
     )

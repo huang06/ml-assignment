@@ -14,6 +14,14 @@ git lfs install
 git clone https://huggingface.co/facebook/m2m100_418M artifacts/m2m100_418M
 ```
 
+```bash
+optimum-cli export onnx \
+  --task seq2seq-lm \
+  --framework pt \
+  --model ./artifacts/m2m100_418M \
+  --optimize O2 ./artifacts/m2m100_418M_onnx
+```
+
 ## Deploy ml-assignment with Docker Compose
 
 ```bash
@@ -27,7 +35,11 @@ docker compose up -d
 
 For simplicity uses k3s, a lightweight Kubernetes distribution.
 
-For detailed instructions on setting up k3s, visit the k3s Quick Start Guide: <https://docs.k3s.io/quick-start>
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.28.6+k3s2 sh -
+```
+
+For detailed instructions on setting up k3s, see <https://docs.k3s.io/quick-start>
 
 ### Prepare the Container Image
 
@@ -50,7 +62,7 @@ kubectl apply -f ./k8s/deployment.yaml
 Open a new session and execute the following command:
 
 ```bash
-kubectl port-forward deployment/ml-assignment --address 0.0.0.0 '9527:9527'
+kubectl port-forward service/ml-assignment --address 0.0.0.0 '9527:9527'
 ```
 
 ## Development

@@ -6,3 +6,5 @@ WORKDIR /srv/ml-assignment
 COPY requirements.txt requirements.txt
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 COPY . .
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["uvicorn app.main:app --host 0.0.0.0 --port 9527"]
