@@ -48,7 +48,7 @@ def inference(batch, model, tokenizer, src_lang, tgt_lang):
 
 @app.post("/translation")
 @app.post("/translation_onnx")
-async def translation_with_onnx(request_model: RequestModel) -> dict:
+def translation_with_onnx(request_model: RequestModel) -> dict:
     payload = request_model.payload
     batch = [record.text for record in payload.records]
     generated_texts = inference(batch, onnx_model, onnx_tokenizer, payload.fromLang, payload.toLang)
@@ -56,7 +56,7 @@ async def translation_with_onnx(request_model: RequestModel) -> dict:
 
 
 @app.post("/translation_torch")
-async def translation_with_torch(request_model: RequestModel) -> dict:
+def translation_with_torch(request_model: RequestModel) -> dict:
     payload = request_model.payload
     batch = [record.text for record in payload.records]
     generated_texts = inference(batch, torch_model, torch_tokenizer, payload.fromLang, payload.toLang)
