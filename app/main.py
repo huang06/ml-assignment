@@ -6,7 +6,7 @@ import os
 from fastapi import FastAPI
 from optimum.onnxruntime import ORTModelForSeq2SeqLM
 from pydantic import BaseModel
-from transformers import M2M100Config, M2M100ForConditionalGeneration, M2M100Tokenizer
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 LOGLEVEL = os.environ.get("LOGLEVEL", "INFO")
 log = logging.getLogger(__name__)
@@ -29,19 +29,35 @@ class RequestModel(BaseModel):
 
 
 LLM_DIR = os.environ["LLM_DIR"]
-# model = M2M100ForConditionalGeneration.from_pretrained(LLM_DIR, local_files_only=True)
-model = ORTModelForSeq2SeqLM.from_pretrained(LLM_DIR, local_files_only=True)
-tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR, local_files_only=True)
+ONNX_DIR = os.environ["ONNX_DIR"]
+torch_model = M2M100ForConditionalGeneration.from_pretrained(LLM_DIR, local_files_only=True)
+torch_tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR, local_files_only=True)
+onnx_model = ORTModelForSeq2SeqLM.from_pretrained(ONNX_DIR, local_files_only=True)
+onnx_tokenizer = M2M100Tokenizer.from_pretrained(ONNX_DIR, local_files_only=True)
+
 
 app = FastAPI()
 
 
-@app.post("/translation")
-async def translation(request_model: RequestModel) -> dict:
-    payload = request_model.payload
-    tokenizer.src_lang = payload.fromLang
-    batch = [record.text for record in payload.records]
+def inference(batch, model, tokenizer, src_lang, tgt_lang):
+    tokenizer.src_lang = src_lang
     model_inputs = tokenizer(batch, return_tensors="pt")
-    generated_tokens = model.generate(**model_inputs, forced_bos_token_id=tokenizer.get_lang_id(payload.toLang))
-    outputs = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
-    return {"result": [{"id": record.id, "text": output} for record, output in zip(payload.records, outputs)]}
+    generated_texts = model.generate(**model_inputs, forced_bos_token_id=tokenizer.get_lang_id(tgt_lang))
+    return tokenizer.batch_decode(generated_texts, skip_special_tokens=True)
+
+
+@app.post("/translation")
+@app.post("/translation_onnx")
+async def translation_with_onnx(request_model: RequestModel) -> dict:
+    payload = request_model.payload
+    batch = [record.text for record in payload.records]
+    generated_texts = inference(batch, onnx_model, onnx_tokenizer, payload.fromLang, payload.toLang)
+    return {"result": [{"id": record.id, "text": text} for record, text in zip(payload.records, generated_texts)]}
+
+
+@app.post("/translation_torch")
+async def translation_with_torch(request_model: RequestModel) -> dict:
+    payload = request_model.payload
+    batch = [record.text for record in payload.records]
+    generated_texts = inference(batch, torch_model, torch_tokenizer, payload.fromLang, payload.toLang)
+    return {"result": [{"id": record.id, "text": text} for record, text in zip(payload.records, generated_texts)]}

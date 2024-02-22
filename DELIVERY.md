@@ -84,6 +84,7 @@ pre-commit install -t commit-msg
 
 ```bash
 export LLM_DIR=${PWD}/artifacts/m2m100_418M
+export ONNX_DIR=${PWD}/artifacts/m2m100_418M_onnx
 uvicorn app.main:app --host 0.0.0.0 --port 9527 --reload
 ```
 
