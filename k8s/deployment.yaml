@@ -1,14 +1,32 @@
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ml-assignment
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: my-pc
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ml-assignment
+                port:
+                  number: 80
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: ml-assignment
 spec:
   selector:
-    name: ml-assignment
+    app: ml-assignment
   ports:
     - protocol: TCP
-      port: 9527
+      port: 80
       targetPort: 9527
 ---
 apiVersion: apps/v1
@@ -36,6 +54,8 @@ spec:
           env:
             - name: LLM_DIR
               value: "/artifacts/m2m100_418M"
+            - name: ONNX_DIR
+              value: "/artifacts/m2m100_418M_onnx"
           volumeMounts:
             - name: llm-artifacts
               mountPath: /artifacts
