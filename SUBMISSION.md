@@ -20,7 +20,7 @@ We use pre-commit hooks to ensure that each git commit meets the requirement of 
 
 ## Prepare Model Artifacts
 
-To reduce the container size and make sure our language model can be used by all containers, we manually download the model into ./artifacts. This approach not only reduces the container image size but also facilitates sharing the language model across containers.
+We will first download the model in advance and share it with each container through mounting during the deployment phase.
 
 ```bash
 sudo apt-get install git-lfs
