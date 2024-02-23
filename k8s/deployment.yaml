@@ -53,9 +53,9 @@ spec:
             - containerPort: 9527
           env:
             - name: LLM_DIR
-              value: "/artifacts/m2m100_418M"
+              value: /artifacts/m2m100_418M
             - name: ONNX_DIR
-              value: "/artifacts/m2m100_418M_onnx"
+              value: /artifacts/m2m100_418M_onnx
           volumeMounts:
             - name: llm-artifacts
               mountPath: /artifacts
