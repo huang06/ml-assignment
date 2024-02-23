@@ -28,7 +28,7 @@ git lfs install
 git clone https://huggingface.co/facebook/m2m100_418M artifacts/m2m100_418M
 ```
 
-### Convert pytorch model to ONNX Format
+### Convert Pytorch Model to ONNX Format
 
 ```bash
 python3 -m venv .venv
