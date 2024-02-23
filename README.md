@@ -54,3 +54,7 @@ Should return:
 - Scalable architecture
 - Good inference performance
 - Efficient CPU/GPU utilization
+
+## My submission
+
+[SUBMISSION.md](https://github.com/huang06/ml-assignment/blob/master/SUBMISSION.md)
