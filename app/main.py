@@ -35,7 +35,6 @@ torch_tokenizer = M2M100Tokenizer.from_pretrained(LLM_DIR, local_files_only=True
 onnx_model = ORTModelForSeq2SeqLM.from_pretrained(ONNX_DIR, local_files_only=True)
 onnx_tokenizer = M2M100Tokenizer.from_pretrained(ONNX_DIR, local_files_only=True)
 
-
 app = FastAPI()
 
 
@@ -46,18 +45,18 @@ def inference(batch, model, tokenizer, src_lang, tgt_lang):
     return tokenizer.batch_decode(generated_texts, skip_special_tokens=True)
 
 
+@app.post("/translation_torch")
+def translation_with_torch(request_model: RequestModel) -> dict:
+    payload = request_model.payload
+    batch = [record.text for record in payload.records]
+    generated_texts = inference(batch, torch_model, torch_tokenizer, payload.fromLang, payload.toLang)
+    return {"result": [{"id": record.id, "text": text} for record, text in zip(payload.records, generated_texts)]}
+
+
 @app.post("/translation")
 @app.post("/translation_onnx")
 def translation_with_onnx(request_model: RequestModel) -> dict:
     payload = request_model.payload
     batch = [record.text for record in payload.records]
     generated_texts = inference(batch, onnx_model, onnx_tokenizer, payload.fromLang, payload.toLang)
-    return {"result": [{"id": record.id, "text": text} for record, text in zip(payload.records, generated_texts)]}
-
-
-@app.post("/translation_torch")
-def translation_with_torch(request_model: RequestModel) -> dict:
-    payload = request_model.payload
-    batch = [record.text for record in payload.records]
-    generated_texts = inference(batch, torch_model, torch_tokenizer, payload.fromLang, payload.toLang)
     return {"result": [{"id": record.id, "text": text} for record, text in zip(payload.records, generated_texts)]}

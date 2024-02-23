@@ -25,7 +25,7 @@ optimum-cli export onnx \
   --task text2text-generation-with-past \
   --framework pt \
   --model ./artifacts/m2m100_418M \
-  --optimize O1 ./artifacts/m2m100_418M_onnx
+  --optimize O3 ./artifacts/m2m100_418M_onnx
 ```
 
 ## Deploy ml-assignment with Docker Compose
