@@ -50,7 +50,6 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        name: Sort imports in Python files
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
@@ -70,8 +69,8 @@ repos:
         exclude: ^tests/
   - repo: local
     hooks:
-      - id: lint-markdown
-        name: Run markdownlint
+      - id: markdownlint
+        name: markdownlint
         description: Checks the style of Markdown files.
         entry: markdownlint
         language: node
