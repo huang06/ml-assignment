@@ -16,7 +16,7 @@ In Kubernetes, our FastAPI Pod utilizes only one worker. Through Traefik as a lo
 
 ### Code Quaility Assurance
 
-We use pre-commit hooks to ensure that each git commit meets the requirement of linters like flake8 and mypy. We also write test cases with pytest to ensure the function reproducibility.
+To maintain the code quality, we use pre-commit to automatically run several external formaters and linters specified in `.pre-commit-config`. We also write test cases with pytest to ensure the reproducibility of the functions.
 
 ## Prepare Model Artifacts
 
