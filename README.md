@@ -1,5 +1,7 @@
 # ML Assignment
 
+**My submission**: [SUBMISSION.md](SUBMISSION.md)
+
 Please implement a translation inference service that runs on Kubernetes and provides a RESTful API on port 9527.
 
 The translation model is `M2M100`, and the example can be found in `app/translation_example.py`.
@@ -54,7 +56,3 @@ Should return:
 - Scalable architecture
 - Good inference performance
 - Efficient CPU/GPU utilization
-
-## My submission
-
-[SUBMISSION.md](https://github.com/huang06/ml-assignment/blob/master/SUBMISSION.md)
