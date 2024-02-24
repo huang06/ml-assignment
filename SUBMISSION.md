@@ -6,7 +6,7 @@
 
 > Deploying 🤗 Transformers models in production environments often requires, or can benefit from exporting the models into a serialized format that can be loaded and executed on specialized runtimes and hardware.  <https://huggingface.co/docs/transformers/serialization>
 
-We converted the PyTorch model to the ONNX format and conducted an experiment to compare their performance. The results shown in blue were obtained using PyTorch, and those in red were obtained using ONNX Runtime. This experiment demonstrates that ONNX can achieve over 2 times faster performance than the original model.
+We converted the PyTorch model to ONNX format to assess the performance improvement in batch generation tasks. The results shown in blue for the PyTorch model and in red for the ONNX model, clearly show that converting to ONNX format results in over a 50% improvement in performance compared to the original PyTorch model. This significant enhancement is crucial for those applications where computational resources may be limited.
 
 ![torch_vs_onnx](./docs/torch_vs_onnx.png)
 
